@@ -16,7 +16,7 @@ struct User {
 
  int a = 31;
  int b = 7;
- int N = 22000;
+ int N = 101;
 
 //función de hash para el ID del usuario
 int FuncionhashUserID(long long user_id) {
