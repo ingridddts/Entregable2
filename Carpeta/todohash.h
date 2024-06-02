@@ -65,7 +65,7 @@ public:
         tabla[i] = newNode;
     }
 
-    Usuario* find(long long user_id) {
+    Usuario* search(long long user_id) {
         size_t i = fhashID(user_id);
         Node* actual = tabla[i];
         while (actual!= nullptr) {
@@ -134,7 +134,7 @@ public:
         tabla[i] = newNode;
     }
 
-    Usuario* find(const string& user_name) {
+    Usuario* search(const string& user_name) {
         size_t i = fhashNAME(user_name);
         Node* actual = tabla[i];
         while (actual != nullptr) {
@@ -157,8 +157,9 @@ private:
 };
 class LinealProbing{
 private:
-    vector<Usuario> tabla;
     int size_=21089;
+    vector<Usuario> tabla;
+    
 
     int funcionLineal(long long key) {
         return key % size_;
@@ -219,8 +220,9 @@ public:
 //pruba cuadratica
 class QuadraticProbing {
 private:
-    vector<Usuario> tabla;
     int size_ = 21089;
+    vector<Usuario> tabla;
+    
 
     int funcionCuadratica(long long key, int i) {
         return (key + i * i) % size_;
@@ -289,8 +291,9 @@ public:
 // dloble hashing
 class DoubleHashing {
 private:
-    vector<Usuario> tabla;
     int size_=21089;
+    vector<Usuario> tabla;
+    
 
     int funcionHash1(long long key) {
         return key % size_;
