@@ -3,15 +3,14 @@
 #include <chrono>
 #include <unordered_map>
 #include <fstream>
-#include <math.h>
+#include <cmath>
 #include <random>
 #include <sstream>
-
+#include <vector>
 
 using namespace std;
 
-int main(){
-    
+ int main(){
     unordered_map<long long, Usuario> um_userID;
     unordered_map<string, Usuario> um_userName;
     UserIDTablaHashOpen hashOpenID(21089);
@@ -29,6 +28,7 @@ int main(){
     string line, word;
     getline(file, line);  
 
+    vector<Usuario> usuarios;
     while (getline(file, line)) {
         stringstream s(line);
         Usuario usuario;
@@ -45,39 +45,56 @@ int main(){
         usuario.followers_count = stoi(word);
         getline(s, usuario.created_at, ',');
 
-        auto start = chrono::high_resolution_clock::now();
-        hashOpenID.insert(usuario.user_id, usuario);
-        auto end = chrono::high_resolution_clock::now();
-        chrono::duration<double> duration = end - start;
-        cout << "Tiempo en hashOpenID: " << duration.count() << "segundos" << endl;
-
-        start = chrono::high_resolution_clock::now();
-        hashOpenName.insert(usuario.user_name, usuario);
-        end = chrono::high_resolution_clock::now();
-        duration = end - start;
-        cout << "Tiempo en hashOpenName: " << duration.count() << "segundos" << endl;
-
-        start = chrono::high_resolution_clock::now();
-        linealProbing.insert(usuario.user_id, usuario);
-        end = chrono::high_resolution_clock::now();
-        duration = end - start;
-        cout << "Tiempo en linealProbing: " << duration.count() << "segundos" << endl;
-
-        start = chrono::high_resolution_clock::now();
-        quadraticProbing.insert(usuario.user_id, usuario);
-        end = chrono::high_resolution_clock::now();
-        duration = end - start;
-        cout << "Tiempo en quadraticProbing: " << duration.count() << "segundos" << endl;
-
-        start = chrono::high_resolution_clock::now();
-        doubleHashing.insert(usuario.user_id, usuario);
-        end = chrono::high_resolution_clock::now();
-        duration = end - start;
-        cout << "Tiempo en doubleHashing: " << duration.count() << "segundos" << endl;
+        usuarios.push_back(usuario);
     }
-
     file.close();
 
+    vector<long long> inserciones = {1000, 5000, 10000, 15000, 20000};
+    for (long long inserciones_size : inserciones) {
+        auto start = chrono::high_resolution_clock::now();
+        for (long long i = 0; i < inserciones_size && i < usuarios.size(); ++i) {
+            hashOpenID.insert(usuarios[i].user_id, usuarios[i]);
+        }
+        auto end = chrono::high_resolution_clock::now();
+        chrono::duration<double> duration = end - start;
+        cout << "Tiempo para insertar " << inserciones_size << " usuarios en hashOpenID: " << duration.count() << " segundos" << endl;
+
+        start = chrono::high_resolution_clock::now();
+        for (long long i = 0; i < inserciones_size && i < usuarios.size(); ++i) {
+            hashOpenName.insert(usuarios[i].user_name, usuarios[i]);
+        }
+        end = chrono::high_resolution_clock::now();
+        duration = end - start;
+        cout << "Tiempo para insertar " << inserciones_size << " usuarios en hashOpenName: " << duration.count() << " segundos" << endl;
+
+        start = chrono::high_resolution_clock::now();
+        for (long long i = 0; i < inserciones_size && i < usuarios.size(); ++i) {
+            linealProbing.insert(usuarios[i].user_id, usuarios[i]);
+        }
+        end = chrono::high_resolution_clock::now();
+        duration = end - start;
+        cout << "Tiempo para insertar " << inserciones_size << " usuarios en linealProbing: " << duration.count() << " segundos" << endl;
+
+        start = chrono::high_resolution_clock::now();
+        for (long long i = 0; i < inserciones_size && i < usuarios.size(); ++i) {
+            quadraticProbing.insert(usuarios[i].user_id, usuarios[i]);
+        }
+        end = chrono::high_resolution_clock::now();
+        duration = end - start;
+        cout << "Tiempo para insertar " << inserciones_size << " usuarios en quadraticProbing: " << duration.count() << " segundos" << endl;
+
+        start = chrono::high_resolution_clock::now();
+        for (long long i = 0; i < inserciones_size && i < usuarios.size(); ++i) {
+            doubleHashing.insert(usuarios[i].user_id, usuarios[i]);
+        }
+        end = chrono::high_resolution_clock::now();
+        duration = end - start;
+        cout << "Tiempo para insertar " << inserciones_size << " usuarios en doubleHashing: " << duration.count() << " segundos" << endl;
+        
+    }
+
+
+    
 
     return 0;
 }
