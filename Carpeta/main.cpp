@@ -158,24 +158,21 @@ using namespace std;
 	archivo.close();
 	std::cout << "double busqueda listo" << std::endl;
 
-	// Search in um
-/*
-file.open("unordered_map_search.csv");
-for (int i = 10; i <= 15; i++) {
-    for (int j = pow(2, i); j < pow(2, i+1); j++) {
-        auto start = chrono::high_resolution_clock::now();
-        um.find(j);
-        auto end = chrono::high_resolution_clock::now();
-        auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
-        file << j << ", " << duration << "\n";
-    }
-}
-file.close();
+	// Busqueda en um_userID
+	file.open("unordered_map_search.csv");
+	for (int i = 10; i <= 15; i++) {
+    	for (int j = pow(2, i); j < pow(2, i+1); j++) {
+        	auto start = chrono::high_resolution_clock::now();
+        	um_userID.find(j);
+        	auto end = chrono::high_resolution_clock::now();
+        	auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+        	archivo << j << ", " << duration << "\n";
+    	}
+	}
+	file.close();
+	std::cout << "Busqueda unordered_map" << std::endl;
+	
 
-std::cout << "unordered_map busqueda listo" << std::endl;
-*/
-
-    
 
     return 0;
 }
