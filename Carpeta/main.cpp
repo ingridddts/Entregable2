@@ -18,6 +18,7 @@ using namespace std;
     LinealProbing linealProbing(21089);
     QuadraticProbing quadraticProbing(21089);
     DoubleHashing doubleHashing(21089);
+    
 
     ifstream file("universities_followers.csv");
     if (!file.is_open()) {
@@ -92,7 +93,90 @@ using namespace std;
         cout << "Tiempo para insertar " << inserciones_size << " usuarios en doubleHashing: " << duration.count() << " segundos" << endl;
         
     }
+    
+    //Busquedas
+	int N = 21089;
 
+  	// Random number generator
+  	random_device rd; //Número aleatorio verdadero
+  	mt19937 gen(rd()); //Número aleatorio pseudoaleatorio	con distribución uniforme llamado con número aleatorio verdadero
+  	uniform_int_distribution<> dis(1, N*2); //Distribución uniforme de 1 a N*2
+
+	// Search linealProbing
+	//para guardar en aarchivo se usa ofstream
+	ofstream file("linear_search.csv");
+	for (int i = 10; i <= 15; i++) {
+    	for (int j = pow(2, i); j < pow(2, i+1); j++) {
+        	auto start = chrono::high_resolution_clock::now();
+        	linealProbing.search(j);
+        	auto end = chrono::high_resolution_clock::now();
+        	auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+        	file << j << ", " << duration << "\n";
+    	}
+	}
+	file.close();
+	std::cout << "Busqueda Lineal" << std::endl;
+
+	// Search quadraticProbing
+	file.open("quadratic_search.csv");
+	for (int i = 10; i <= 15; i++) {
+    	for (int j = pow(2, i); j < pow(2, i+1); j++) {
+        	auto start = chrono::high_resolution_clock::now();
+        	quadraticProbing.search(j);
+        	auto end = chrono::high_resolution_clock::now();
+        	auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+        	file << j << ", " << duration << "\n";
+    	}
+	}
+	file.close();
+	std::cout << "quadratic busqueda listo" << std::endl;
+
+	// Search doubleHashing
+	file.open("double_search.csv");
+	for (int i = 10; i <= 15; i++) {
+    	for (int j = pow(2, i); j < pow(2, i+1); j++) {
+        	auto start = chrono::high_resolution_clock::now();
+        	doubleHashing.search(j);
+        	auto end = chrono::high_resolution_clock::now();
+        	auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+        	file << j << ", " << duration << "\n";
+    	}
+	}
+	file.close();
+	std::cout << "double busqueda listo" << std::endl;
+
+	// Search in um
+/*
+file.open("unordered_map_search.csv");
+for (int i = 10; i <= 15; i++) {
+    for (int j = pow(2, i); j < pow(2, i+1); j++) {
+        auto start = chrono::high_resolution_clock::now();
+        um.find(j);
+        auto end = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+        file << j << ", " << duration << "\n";
+    }
+}
+file.close();
+
+std::cout << "unordered_map busqueda listo" << std::endl;
+*/
+	// Search in um
+	/*
+	file.open("pruebas.csv");
+	for (int i = 10; i <= 15; i++) {
+    	for (int j = pow(2, i); j < pow(2, i+1); j++) {
+        	auto start = chrono::high_resolution_clock::now();
+        	um.find(j);
+        	auto end = chrono::high_resolution_clock::now();
+        	auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+        	file << j << ", " << duration << "\n";
+    	}
+	}
+	file.close();
+	std::cout << "Busqueda unordered_map" << std::endl;
+	
+*/
 
     
 
