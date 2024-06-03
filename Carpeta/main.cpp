@@ -104,17 +104,17 @@ using namespace std;
 
 	// Search linealProbing
 	//para guardar en aarchivo se usa ofstream
-	ofstream file("linear_search.csv");
+	ofstream archivo("linear_search.csv");
 	for (int i = 10; i <= 15; i++) {
     	for (int j = pow(2, i); j < pow(2, i+1); j++) {
         	auto start = chrono::high_resolution_clock::now();
         	linealProbing.search(j);
         	auto end = chrono::high_resolution_clock::now();
         	auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
-        	file << j << ", " << duration << "\n";
+        	archivo << j << ", " << duration << "\n";
     	}
 	}
-	file.close();
+	archivo.close();
 	std::cout << "Busqueda Lineal" << std::endl;
 
 	// Search quadraticProbing
@@ -125,10 +125,10 @@ using namespace std;
         	quadraticProbing.search(j);
         	auto end = chrono::high_resolution_clock::now();
         	auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
-        	file << j << ", " << duration << "\n";
+        	archivo << j << ", " << duration << "\n";
     	}
 	}
-	file.close();
+	archivo.close();
 	std::cout << "quadratic busqueda listo" << std::endl;
 
 	// Search doubleHashing
@@ -139,10 +139,10 @@ using namespace std;
         	doubleHashing.search(j);
         	auto end = chrono::high_resolution_clock::now();
         	auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
-        	file << j << ", " << duration << "\n";
+        	archivo << j << ", " << duration << "\n";
     	}
 	}
-	file.close();
+	archivo.close();
 	std::cout << "double busqueda listo" << std::endl;
 
 	// Search in um
