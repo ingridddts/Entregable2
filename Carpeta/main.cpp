@@ -19,7 +19,7 @@ using namespace std;
     QuadraticProbing quadraticProbing(21089);
     DoubleHashing doubleHashing(21089);
     
-
+    //lee el archivo
     ifstream file("universities_followers.csv");
     if (!file.is_open()) {
         cerr << "no se pudo abrir" << endl;
@@ -105,6 +105,17 @@ using namespace std;
 	// Search linealProbing
 	//para guardar en aarchivo se usa ofstream
 	ofstream archivo("linear_search.csv", ios::app);
+	auto start = chrono::high_resolution_clock::now();
+	for(long long i=0; i<= 15; i++){
+		for(int j = pow(2,1); j< pow(2, i+1); j++){
+			linealProbing.search(j);
+		}	
+	}
+	auto end = chrono::high_resolution_clock::now();
+    auto duration = end - start;
+    cout << "Busqueda lineal " << duration.count() << " segundos" << endl;
+    archivo.close();   
+    /*lineal probing search
 	for (int i = 10; i <= 15; i++) {
     	for (int j = pow(2, i); j < pow(2, i+1); j++) {
         	auto start = chrono::high_resolution_clock::now();
@@ -112,11 +123,12 @@ using namespace std;
         	auto end = chrono::high_resolution_clock::now();
         	auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
         	archivo << j << ", " << duration << "\n";
+        	cout << "Tiempo para busqueda lineal" << duration << " segundos" << endl;
     	}
 	}
 	archivo.close();
 	std::cout << "Busqueda Lineal" << std::endl;
-
+    */
 	// Search quadraticProbing
 	archivo.open("quadratic_search.csv");
 	for (int i = 10; i <= 15; i++) {
@@ -139,7 +151,8 @@ using namespace std;
         	doubleHashing.search(j);
         	auto end = chrono::high_resolution_clock::now();
         	auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
-        	archivo << j << ", " << duration << "\n";
+        	//se guarda en el archivo j y la duracion
+        	archivo << j << " , " << duration << "\n";
     	}
 	}
 	archivo.close();
