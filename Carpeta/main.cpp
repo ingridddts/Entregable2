@@ -104,7 +104,7 @@ using namespace std;
 
 	// Search linealProbing
 	//para guardar en aarchivo se usa ofstream
-	ofstream archivo("linear_search.csv");
+	ofstream archivo("linear_search.csv", ios::app);
 	for (int i = 10; i <= 15; i++) {
     	for (int j = pow(2, i); j < pow(2, i+1); j++) {
         	auto start = chrono::high_resolution_clock::now();
@@ -118,7 +118,7 @@ using namespace std;
 	std::cout << "Busqueda Lineal" << std::endl;
 
 	// Search quadraticProbing
-	file.open("quadratic_search.csv");
+	archivo.open("quadratic_search.csv");
 	for (int i = 10; i <= 15; i++) {
     	for (int j = pow(2, i); j < pow(2, i+1); j++) {
         	auto start = chrono::high_resolution_clock::now();
@@ -132,7 +132,7 @@ using namespace std;
 	std::cout << "quadratic busqueda listo" << std::endl;
 
 	// Search doubleHashing
-	file.open("double_search.csv");
+	archivo.open("double_search.csv");
 	for (int i = 10; i <= 15; i++) {
     	for (int j = pow(2, i); j < pow(2, i+1); j++) {
         	auto start = chrono::high_resolution_clock::now();
@@ -160,22 +160,6 @@ for (int i = 10; i <= 15; i++) {
 file.close();
 
 std::cout << "unordered_map busqueda listo" << std::endl;
-*/
-	// Search in um
-	/*
-	file.open("pruebas.csv");
-	for (int i = 10; i <= 15; i++) {
-    	for (int j = pow(2, i); j < pow(2, i+1); j++) {
-        	auto start = chrono::high_resolution_clock::now();
-        	um.find(j);
-        	auto end = chrono::high_resolution_clock::now();
-        	auto duration = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
-        	file << j << ", " << duration << "\n";
-    	}
-	}
-	file.close();
-	std::cout << "Busqueda unordered_map" << std::endl;
-	
 */
 
     
